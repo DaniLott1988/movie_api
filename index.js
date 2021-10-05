@@ -215,14 +215,15 @@ app.get('/users/:username/favorites', (req, res) => {
 
 app.post('/users', (req, res) => {
   let newUser = req.body;
-  if (!newUse.username) {
-    const message = "Missing name in request body";
+
+  if (!newUser.username) {
+    const message = 'Missing name in request body';
     res.status(400).send(message);
   } else {
     newUser.id = uuid.v4();
     users.push(newUser);
     res.status(201).send(newUser);
-  };
+  }
 });
 
 app.post('/users/:username/favorites', (req, res) => {
@@ -232,16 +233,15 @@ app.post('/users/:username/favorites', (req, res) => {
     res.status(400).send(message);
   } else {
     res.send('New movie was added to the favorites!')
-  };
+  }
 });
 
 app.put('/users/:username', (req, res) => {
-  let user = users.find((user) => {
-    return user.username === req.params.username
-  });
+  let user = users.find((user) => { return user.username === req.params.username });
+
   if (user) {
-    user [req.params.username] = parseInt(req.params.username);
-    res.status(201).send('Request completed: User ' + req.params.username + ' changed their username.');
+    user[req.params.username] = parseInt(req.params.username);
+    res.status(201).send('Request completed: User ' + req.params.username + ' changed their username.);
   } else {
     res.status(404).send('User ' + req.params.username + ' was not found.');
   }
