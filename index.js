@@ -182,7 +182,7 @@ app.get('/directors', (req, res) => {
 });
 
 app.get('/directors/:name', (req, res) => {
-  res.json(directors.find((name) => {
+  res.json(directors.find((director) => {
     return director.name === req.params.name
   }));
 });
@@ -192,7 +192,7 @@ app.get('/genres', (req, res) => {
 });
 
 app.get('/genres/:type', (req, res) => {
-  res.json(genres.find((type) => {
+  res.json(genres.find((genre) => {
     return genre.type === req.params.type
   }));
 });
@@ -202,7 +202,7 @@ app.get('/users', (req, res) => {
 });
 
 app.get('/users/:username', (req, res) => {
-  res.json(users.find((username) => {
+  res.json(users.find((user) => {
     return user.username === req.params.username
   }));
 });
