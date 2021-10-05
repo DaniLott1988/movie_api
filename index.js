@@ -1,5 +1,7 @@
 const express = require('express'),
   morgan = require('morgan');
+  bodyParser = require('body-parser'),
+  uuid = require('uuid');
 
 const app = express();
 
@@ -7,53 +9,65 @@ app.use(morgan('common'));
 
 app.use(express.static('public'));
 
+app.use(bodyParser.json());
+
 let topTenMovies = [
   {
+    id: 1,
     title: 'The Lord of the Rings: The Return of the King',
     director: 'Peter Jackson',
     year: 2003
   },
   {
+    id: 2,
     title: 'The Lord of the Rings: The Fellowship of the Ring',
     director: 'Peter Jackson',
     year: 2001
   },
   {
+    id: 3,
     title: 'The Lord of the Rings: Two Towers',
     director: 'Peter Jackson',
     year: 2002
   },
   {
+    id: 4,
     title: 'V for Vendetta',
     director: 'James McTeigue',
     year: 2005
   },
   {
+    id: 5,
     title: 'Red Dragon',
     director: 'Brett Ratner',
     year: 2002
   },
   {
+    id: 6,
     title: 'The Silence of the Lambs',
     director: 'Jonathan Demme',
     year: 1991
   },
   {
+    id: 7,
     title: '10 Things I Hate About You',
     director: 'Gil Junger',
     year: 1999
   },
   {
+    id: 8,
     title: 'The Dark Knight',
     director: 'Christopher Nolan',
     year: 2008
   },
   {
+    id: 9,
     title: 'Avengers: Endgame',
     director: 'Russo Brothers',
     year: 2019
   },
   {
+    id: 10,
     title: 'O Auto da Compadecida',
     director: 'Guel Arraes',
     year: 2000

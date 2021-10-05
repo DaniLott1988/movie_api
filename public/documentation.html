@@ -12,5 +12,76 @@
     <p> To build the server-side component of a “movies” web application. The web
 application will provide users with access to information about different
 movies, directors, and genres. </p>
+    <h2> Endpoints </h2>
+    <ul>
+      <li> URL: /movies </li>
+      <li> Request: GET list of all the movies </li>
+      <li> Description: JSON that has the movies data as objects. </li>
+    </ul>
+    <ul>
+      <li> URL: /movies/:title </li>
+      <li> Request: GET movie by title </li>
+      <li> Description: JSON object retrieved through title's data. </li>
+    </ul>
+    <ul>
+      <li> URL: /directors </li>
+      <li> Request: GET list of all the directors </li>
+      <li> Description: JSON that has the directors data as objects. </li>
+    </ul>
+    <ul>
+      <li> URL: /directors/:name  </li>
+      <li> Request: GET director by name </li>
+      <li> Description: JSON object retrieved through name's data. </li>
+    </ul>
+    <ul>
+      <li> URL: /genres </li>
+      <li> Request: GET list of all the genres </li>
+      <li> Description: JSON that has the genres data as objects. </li>
+    </ul>
+    <ul>
+      <li> URL: /genres/:type </li>
+      <li> Request: GET genre by type </li>
+      <li> Description: JSON object retrieved through type's data. </li>
+    </ul>
+    <ul>
+      <li> URL: /users </li>
+      <li> Request: GET list of all the users </li>
+      <li> Description: JSON that has the users data as objects. </li>
+    </ul>
+    <ul>
+      <li> URL: /users/:username </li>
+      <li> Request: GET user by username </li>
+      <li> Description: JSON object retrieved through username's data. </li>
+    </ul>
+    <ul>
+      <li> URL: /users/:username/favorites </li>
+      <li> Request: GET user favorite list through username </li>
+      <li> Description: JSON with user's favorite list retrieved through username's data. </li>
+    </ul>
+    <ul>
+      <li> URL: /users </li>
+      <li> Request: POST new user </li>
+      <li> Description: Confirmation message is show as new user is added. </li>
+    </ul>
+    <ul>
+      <li> URL: /users/:username/favorites </li>
+      <li> Request: POST new favorite to the list of the user </li>
+      <li> Description: Confirmation message is show as new favorite is added to the list. </li>
+    </ul>
+    <ul>
+      <li> URL: /users/:username </li>
+      <li> Request: PUT (update) username </li>
+      <li> Description: Confirmation message is show as selected username is updated. </li>
+    </ul>
+    <ul>
+      <li> URL: /users/:id </li>
+      <li> Request: DELETE user through id </li>
+      <li> Description: Confirmation message is show as user is deleted. </li>
+    </ul>
+    <ul>
+      <li> URL: /users/:username/favorites </li>
+      <li> Request: DELETE a movie from favorites of the user </li>
+      <li> Description: Confirmation message is show as movie excluded from favorites. </li>
+    </ul>
   </body>
 </html>
