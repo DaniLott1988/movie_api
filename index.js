@@ -55,9 +55,9 @@ app.get('/users/:username', (req, res) => {
   }));
 });
 
-app.get('/users/:username/favorites', (req, res) => {
+app.get('/users/:username/favorite_movies', (req, res) => {
   res.json(users.username.find((favorites) => {
-    return user.username.favorites === req.params.favorites
+    return user.username.favorite_movies === req.params.favorite_movies
   }));
 });
 
@@ -74,7 +74,7 @@ app.post('/users', (req, res) => {
   }
 });
 
-app.post('/users/:username/favorites', (req, res) => {
+app.post('/users/:username/favorite_movies', (req, res) => {
   let newFavorite = req.body;
   if (!newFavorite.title) {
     const message = "Missing name in request body";
@@ -107,7 +107,7 @@ app.delete('/users/:id', (req, res) => {
   }
 });
 
-app.delete('/users/:username/favorites', (req, res) => {
+app.delete('/users/:username/favorite_movies', (req, res) => {
   let deleteMovie = req.body;
 
   if (deleteMovie) {
