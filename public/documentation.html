@@ -14,6 +14,11 @@ application will provide users with access to information about different
 movies, directors, and genres. </p>
     <h2> Endpoints </h2>
     <ul>
+      <li> URL: '/' </li>
+      <li> Request: Start Page </li>
+      <li> Description: Starting Page, Welcoming page. </li>
+    </ul>
+    <ul>
       <li> URL: /movies </li>
       <li> Request: GET list of all the movies </li>
       <li> Description: JSON that has the movies data as objects. </li>
@@ -54,17 +59,12 @@ movies, directors, and genres. </p>
       <li> Description: JSON object retrieved through username's data. </li>
     </ul>
     <ul>
-      <li> URL: /users/:Username/Favorite_Movies </li>
-      <li> Request: GET user favorite list through username </li>
-      <li> Description: JSON with user's favorite list retrieved through username's data. </li>
-    </ul>
-    <ul>
       <li> URL: /users </li>
       <li> Request: POST new user </li>
       <li> Description: Confirmation message is show as new user is added. </li>
     </ul>
     <ul>
-      <li> URL: /users/:Username/Favorite_Movies </li>
+      <li> URL: /users/:Username/movies/:MovieID </li>
       <li> Request: POST new favorite to the list of the user </li>
       <li> Description: Confirmation message is show as new favorite is added to the list. </li>
     </ul>
@@ -74,12 +74,12 @@ movies, directors, and genres. </p>
       <li> Description: Confirmation message is show as selected username is updated. </li>
     </ul>
     <ul>
-      <li> URL: /users/:id </li>
-      <li> Request: DELETE user through id </li>
+      <li> URL: /users/:Username </li>
+      <li> Request: DELETE user through Username </li>
       <li> Description: Confirmation message is show as user is deleted. </li>
     </ul>
     <ul>
-      <li> URL: /users/:username/favorite_movies </li>
+      <li> URL: /users/:Username/movies/:MovieID </li>
       <li> Request: DELETE a movie from favorites of the user </li>
       <li> Description: Confirmation message is show as movie excluded from favorites. </li>
     </ul>
