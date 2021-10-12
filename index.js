@@ -7,6 +7,8 @@ const mongoose = require('mongoose');
 const Models = require('./models.js');
 
 const Movies = Models.Movie;
+const Genres = Models.Genre;
+const Directors = Models.Director;
 const Users = Models.User;
 
 mongoose.connect('mongodb://localhost:27017/[MovieItDB]', { useNewUrlParser: true, useUnifiedTopology: true});
@@ -15,10 +17,26 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}));
 
+const cors = require('cors');
+let allowedOrigins = ['http://localhost:8081', 'http://testsite.com'];
+
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) === -1) {
+      let message = 'The CORS policy for this application doesn\'t allow access from origin ' + origin;
+      return callback(new Error(message ), false);
+    }
+    return callback(null, true);
+  }
+}));
+
 let auth = require('./auth')(app);
 
 const passport = require('passport');
 require('./passport');
+
+const { check, validationResult } = require('express-validator');
 
 app.use(morgan('common'));
 
@@ -51,9 +69,9 @@ app.get('/movies/:Title', passport.authenticate('jwt', { session: false }), (req
 });
 
 app.get('/directors', passport.authenticate('jwt', { session: false }), (req, res) => {
-  Movies.find()
-  .then((director) => {
-    res.status(201).json(director);
+  Directors.find()
+  .then((directors) => {
+    res.status(201).json(directors);
   })
   .catch((error) => {
     console.error(err);
@@ -61,10 +79,10 @@ app.get('/directors', passport.authenticate('jwt', { session: false }), (req, re
   });
 });
 
-app.get('/director/:Name', passport.authenticate('jwt', { session: false }), (req, res) => {
-  Movies.findOne({ 'Director.Name': req.params.Name })
+app.get('/directors/:Name', passport.authenticate('jwt', { session: false }), (req, res) => {
+  Directors.findOne({ Name: req.params.Name })
   .then((director) => {
-    res.json(director.Director);
+    res.json(director);
   })
   .catch((err) => {
     console.error(err);
@@ -73,9 +91,9 @@ app.get('/director/:Name', passport.authenticate('jwt', { session: false }), (re
 });
 
 app.get('/genres', passport.authenticate('jwt', { session: false }), (req, res) => {
-  Movies.find()
-  .then((genre) => {
-    res.status(201).json(genre);
+  Genres.find()
+  .then((genres) => {
+    res.status(201).json(genres);
   })
   .catch((error) => {
     console.error(err);
@@ -84,9 +102,9 @@ app.get('/genres', passport.authenticate('jwt', { session: false }), (req, res) 
 });
 
 app.get('/genres/:Name', passport.authenticate('jwt', { session: false }), (req, res) => {
-  Movies.findOne({ 'Genre.Name': req.params.Name })
+  Genres.findOne({ Name: req.params.Name })
   .then((genre) => {
-    res.json(genre.Genre);
+    res.json(genre);
   })
   .catch((err) => {
     console.error(err);
@@ -116,7 +134,18 @@ app.get('/users/:Username', passport.authenticate('jwt', { session: false }), (r
   });
 });
 
-app.post('/users', passport.authenticate('jwt', { session: false }), (req, res) => {
+app.post('/users', [
+  check('Username', 'Username is required').not().isEmpty(),
+  check('Username', 'Username contains non alphanumeric characters - which is not allowed.').isAlphanumeric(),
+  check('Password', 'Password is required to have a minimum length of 9 characters.').isLength({min: 9}),
+  check('Email', 'Email does not appear to be in a valid format.').isEmail()
+], (req, res) => {
+  let errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
+  }
+  let hashedPassword = Users.hashPassword(req.body.Password);
   Users.findOne({ Username: req.body.Username})
   .then((user) => {
     if (user) {
@@ -125,7 +154,7 @@ app.post('/users', passport.authenticate('jwt', { session: false }), (req, res) 
     Users
     .create({
       Username: req.body.Username,
-      Password: req.body.Password,
+      Password: hashedPassword,
       Email: req.body.Email,
       Birth_date: req.body.Birth_date
     })
