@@ -18,7 +18,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}));
 
 const cors = require('cors');
-let allowedOrigins = ['http://localhost:8081', 'http://testsite.com'];
+let allowedOrigins = ['http://localhost:8080', 'http://testsite.com', 'https://upload.wikimedia.org/', 'https://flxt.tmsimg.com/'];
 
 app.use(cors({
   origin: (origin, callback) => {
@@ -241,6 +241,7 @@ app.use((err, req, res, next) => {
   res.status(500).send('Ups! Seems like something\'s gone wrong.');
 });
 
-app.listen(8081, () => {
-  console.log('Your app is listening on port 8081.');
+const port = process.env.PORT || 8080;
+app.listen(port, '0.0.0.0',() => {
+  console.log('Your app is listening on Port ' + port + '.');
 });
