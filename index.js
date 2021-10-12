@@ -11,7 +11,8 @@ const Genres = Models.Genre;
 const Directors = Models.Director;
 const Users = Models.User;
 
-mongoose.connect('mongodb://localhost:27017/[MovieItDB]', { useNewUrlParser: true, useUnifiedTopology: true});
+//'mongodb://localhost:27017/[MovieItDB]' <= Local host kept for future tests purposes
+mongoose.connect( process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true});
 
 const app = express();
 app.use(bodyParser.json());
