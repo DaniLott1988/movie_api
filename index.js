@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}));
 
 const cors = require('cors');
-let allowedOrigins = ['http://localhost:8080', 'http://testsite.com', 'https://upload.wikimedia.org/', 'https://flxt.tmsimg.com/'];
+let allowedOrigins = ['http://localhost:8080', 'http://testsite.com', 'https://upload.wikimedia.org/', 'https://flxt.tmsimg.com/', 'http://localhost:1234'];
 
 app.use(cors({
   origin: (origin, callback) => {
@@ -47,7 +47,7 @@ app.get('/', (req, res) => {
   res.send('Do feel welcome to this app!');
 });
 
-app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
+app.get('/movies', (req, res) => {
   Movies.find()
   .then((movies) => {
     res.status(201).json(movies);
