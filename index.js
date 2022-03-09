@@ -19,20 +19,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}));
 
 const cors = require('cors');
-
 app.use(cors());
-app.options('*', cors());
-let allowedOrigins = function (req, res, next) {
-	res.header('Access-Control-Allow-Origin', '*');
-	res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE');
-	res.header('Access-Control-Allow-Headers', 'Content-Type');
-	next();
-};
-
-let auth = require('./auth')(app);
 
 const passport = require('passport');
 require('./passport');
+require('./auth')(app);
+
 
 const { check, validationResult } = require('express-validator');
 
