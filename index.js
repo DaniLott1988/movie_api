@@ -29,12 +29,6 @@ let allowedOrigins = function (req, res, next) {
 	next();
 };
 
-app.use(allowedOrigins);
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static('public'));
-app.use(morgan('common'));
-
 let auth = require('./auth')(app);
 
 const passport = require('passport');
