@@ -2,30 +2,31 @@ const express = require('express'),
   morgan = require('morgan');
   bodyParser = require('body-parser'),
   uuid = require('uuid');
-
 const mongoose = require('mongoose');
 const Models = require('./models.js');
-
 const Movies = Models.Movie;
 const Genres = Models.Genre;
 const Directors = Models.Director;
 const Users = Models.User;
-
 //'mongodb://localhost:27017/[MovieItDB]' <= Local host kept for future tests purposes
 mongoose.connect( process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true});
-
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true}));
-
 const cors = require('cors');
 app.use(cors());
+app.options('*', cors());
+let allowedOrigins = function (req, res, next) {
+	res.header('Access-Control-Allow-Origin', '*');
+	res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE');
+	res.header('Access-Control-Allow-Headers', 'Content-Type');
+	next();
+};
+
+let auth = require('./auth')(app);
 
 const passport = require('passport');
 require('./passport');
-require('./auth')(app);
-
-
 const { check, validationResult } = require('express-validator');
 
 app.use(morgan('common'));
